@@ -17,7 +17,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::post('/tickets/{ticket}/replies', [ReplyController::class, 'store']);
 
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')
+    ->middleware('is.admin')
+    ->group(function () {
         Route::get('/tickets', [AdminTicketController::class, 'index']);
         Route::patch('/tickets/{ticket}/status', [AdminTicketController::class, 'updateStatus']);
     });
